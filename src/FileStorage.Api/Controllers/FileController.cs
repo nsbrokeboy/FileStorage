@@ -35,7 +35,7 @@ public class FileController : ControllerBase
     /// <response code="500">Ошибка при обработке запроса</response>
     [HttpPost("files/upload")]
     public async Task<IActionResult> UploadFiles(IEnumerable<IFormFile> files, Guid userId, CancellationToken token)
-    { 
+    {
         return Ok(await _fileService.UploadFilesAsync(files, userId, token));
     }
 
@@ -82,7 +82,7 @@ public class FileController : ControllerBase
     {
         return Ok(await _fileService.GetFilesByFileGroupIdAsync(groupId, userId, token));
     }
-    
+
     /// <summary>
     /// Скачать файл из хранилища.
     /// </summary>
@@ -98,10 +98,10 @@ public class FileController : ControllerBase
     public async Task<IActionResult> DownloadFile(Guid fileId, Guid userId, CancellationToken token)
     {
         var file = await _fileService.GetPhysicalFileAsync(fileId, userId, token);
-        
+
         return File(file.Content, file.ContentType, file.FileName);
     }
-    
+
     /// <summary>
     /// Скачать группу файлов из хранилища.
     /// </summary>
@@ -118,7 +118,37 @@ public class FileController : ControllerBase
     {
         var files = await _fileService.GetPhysicalFilesAsync(fileGroupId, userId, token);
         var zip = await _storageService.CreateZipArchive(files, token, fileGroupId.ToString());
-        
+
         return File(zip.Content, zip.ContentType, zip.FileName);
+    }
+
+    /// <summary>
+    /// Получить процент загрузки файла.
+    /// </summary>
+    /// <param name="fileId">Идентификатор файла</param>
+    /// <param name="userId">Идентификатор пользователя</param>
+    /// <param name="token">CancellationToken</param>
+    /// <returns></returns>
+    [HttpGet("file/progress/{fileId}/")]
+    public async Task<IActionResult> GetFileProgress(Guid fileId, Guid userId, CancellationToken token)
+    {
+        var progress = await _fileService.GetFileProgressAsync(fileId, userId, token);
+
+        return Ok(progress);
+    }
+
+    /// <summary>
+    /// Получить процент загрузки группы файлов.
+    /// </summary>
+    /// <param name="fileId">Идентификатор файла</param>
+    /// <param name="userId">Идентификатор пользователя</param>
+    /// <param name="token">CancellationToken</param>
+    /// <returns></returns>
+    [HttpGet("files/progress/{fileGroupId}/")]
+    public async Task<IActionResult> GetFileGroupProgress(Guid fileGroupId, Guid userId, CancellationToken token)
+    {
+        var progress = await _fileService.GetFileGroupProgressAsync(fileGroupId, userId, token);
+
+        return Ok(progress);
     }
 }

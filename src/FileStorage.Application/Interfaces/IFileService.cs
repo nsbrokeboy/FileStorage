@@ -36,7 +36,7 @@ public interface IFileService
     /// <param name="token">CancellationToken</param>
     /// <returns></returns>
     public Task<FileGroup> GetFileGroupAsync(Guid fileGroupId, Guid userId, CancellationToken token);
-    
+
     /// <summary>
     /// Получить файл (физический).
     /// </summary>
@@ -45,7 +45,7 @@ public interface IFileService
     /// <param name="token">CancellationToken</param>
     /// <returns></returns>
     public Task<FileMetadata> GetPhysicalFileAsync(Guid fileId, Guid userId, CancellationToken token);
-    
+
     /// <summary>
     /// Получить группу файлов.
     /// </summary>
@@ -63,7 +63,7 @@ public interface IFileService
     /// <param name="token">CancellationToken</param>
     /// <returns></returns>
     public Task<IEnumerable<FileGroup>> GetFileGroupsByUserIdAsync(Guid userId, CancellationToken token);
-    
+
     /// <summary>
     /// Получить список загруженных файлов пользователем.
     /// </summary>
@@ -98,7 +98,7 @@ public interface IFileService
     /// <param name="token">CancellationToken</param>
     /// <returns></returns>
     public Task<string> GetTemporaryLinkForFileGroupAsync(Guid fileGroupId, Guid userId, CancellationToken token);
-    
+
     /// <summary>
     /// Получить файл по одноразовой ссылке.
     /// </summary>
@@ -106,7 +106,7 @@ public interface IFileService
     /// <param name="token">CancellationToken</param>
     /// <returns></returns>
     public Task<FileMetadata> GetFileByTemporaryLink(Guid temporaryLinkId, CancellationToken token);
-    
+
     /// <summary>
     /// Получить группу файлов по одноразовой ссылке.
     /// </summary>
@@ -122,4 +122,22 @@ public interface IFileService
     /// <param name="token">CancellationToken</param>
     /// <returns></returns>
     public Task<TemporaryLink> GetTemporaryLinkByIdAsync(Guid temporaryLinkId, CancellationToken token);
+
+    /// <summary>
+    /// Получить процент загрузки файла
+    /// </summary>
+    /// <param name="fileId">Идентификатор файла</param>
+    /// <param name="userId">Идентификатор пользователя</param>
+    /// <param name="token">CancellationToken</param>
+    /// <returns>Число 0-100%</returns>
+    public Task<decimal> GetFileProgressAsync(Guid fileId, Guid userId, CancellationToken token);
+
+    /// <summary>
+    /// Получить процент загрузки группы файлов
+    /// </summary>
+    /// <param name="fileGroupId">Идентификатор группы файлов</param>
+    /// <param name="userId">Идентификатор пользователя</param>
+    /// <param name="token">CancellationToken</param>
+    /// <returns>Число 0-100%</returns>
+    public Task<decimal> GetFileGroupProgressAsync(Guid fileGroupId, Guid userId, CancellationToken token);
 }

@@ -90,7 +90,7 @@ public class FileService : IFileService
         var fileGroup = await _dbContext.FileGroups
             .Include(fg => fg.Files)
             .SingleOrDefaultAsync(f => f.Id == fileGroupId, token);
-        
+
         if (fileGroup == null)
         {
             throw new NotFoundException("Группа файлов не найдена");
@@ -152,7 +152,7 @@ public class FileService : IFileService
         CancellationToken token)
     {
         var fileGroup = await GetFileGroupAsync(fileGroupId, userId, token);
-        
+
         return fileGroup.Files;
     }
 
@@ -181,7 +181,7 @@ public class FileService : IFileService
         {
             FileGroup = fileGroup
         };
-        
+
         await _dbContext.TemporaryLinks.AddAsync(link, token);
         await _dbContext.SaveChangesAsync(token);
         return link.Id.ToString();
@@ -209,7 +209,7 @@ public class FileService : IFileService
 
         temporaryLink.IsActive = false;
         await _dbContext.SaveChangesAsync(token);
-        
+
         return new FileMetadata
         {
             FileName = file.OriginalFilename,
@@ -231,7 +231,7 @@ public class FileService : IFileService
         {
             throw new NotFoundException("Группа файлов не найдена");
         }
-        
+
         var files = await GetFilesByFileGroupIdAsync(fileGroup.Id, fileGroup.UserId, token);
         var physicalFiles = new List<FileMetadata>();
         foreach (var file in files)
@@ -260,5 +260,25 @@ public class FileService : IFileService
         }
 
         return temporaryLink;
+    }
+
+    /// <inheritdoc />
+    public async Task<decimal> GetFileProgressAsync(Guid fileId, Guid userId, CancellationToken token)
+    {
+        var file = await GetFileAsync(fileId, userId, token);
+        var physicalFile = await GetPhysicalFileAsync(file.Id, userId, token);
+        return (physicalFile.Content.Length / (decimal)file.Size) * 100;
+    }
+
+    /// <inheritdoc />
+    public async Task<decimal> GetFileGroupProgressAsync(Guid fileGroupId, Guid userId, CancellationToken token)
+    {
+        var fileGroup = await GetFileGroupAsync(fileGroupId, userId, token);
+        var files = await GetFilesByFileGroupIdAsync(fileGroup.Id, fileGroup.UserId, token);
+        var physicalFiles = await GetPhysicalFilesAsync(fileGroup.Id, userId, token);
+
+        var filesTotalSize = files.Sum(f => f!.Size);
+        var physicalFilesTotalSize = physicalFiles.Sum(f => f.Content.Length);
+        return (physicalFilesTotalSize / (decimal)filesTotalSize) * 100;
     }
 }
