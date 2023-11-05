@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileStorage.Api", "src\FileStorage.Api\FileStorage.Api.csproj", "{EFD474B1-8BA3-47D5-8963-5743000A9F43}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2A37D887-3C60-41E4-9190-7CC562F9FDB4}"
+	ProjectSection(SolutionItems) = preProject
+		src\Dockerfile = src\Dockerfile
+		src\.dockerignore = src\.dockerignore
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileStorage.Domain", "src\FileStorage.Domain\FileStorage.Domain.csproj", "{DD917C87-86A3-43DC-A0B7-4B895F17D197}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileStorage.Application", "src\FileStorage.Application\FileStorage.Application.csproj", "{4E9D1206-210E-4B8B-BFFD-0CE5CE57FB16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileStorage.Infrastructure", "src\FileStorage.Infrastructure\FileStorage.Infrastructure.csproj", "{8536B471-73D5-4070-BBB6-601C170FA2CA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{EF7CA5ED-F64C-4DD5-BFFF-1249DF38F13A}"
+	ProjectSection(SolutionItems) = preProject
+		docker\docker-compose.yml = docker\docker-compose.yml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EFD474B1-8BA3-47D5-8963-5743000A9F43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFD474B1-8BA3-47D5-8963-5743000A9F43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFD474B1-8BA3-47D5-8963-5743000A9F43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFD474B1-8BA3-47D5-8963-5743000A9F43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD917C87-86A3-43DC-A0B7-4B895F17D197}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD917C87-86A3-43DC-A0B7-4B895F17D197}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD917C87-86A3-43DC-A0B7-4B895F17D197}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD917C87-86A3-43DC-A0B7-4B895F17D197}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E9D1206-210E-4B8B-BFFD-0CE5CE57FB16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E9D1206-210E-4B8B-BFFD-0CE5CE57FB16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E9D1206-210E-4B8B-BFFD-0CE5CE57FB16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E9D1206-210E-4B8B-BFFD-0CE5CE57FB16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8536B471-73D5-4070-BBB6-601C170FA2CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8536B471-73D5-4070-BBB6-601C170FA2CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8536B471-73D5-4070-BBB6-601C170FA2CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8536B471-73D5-4070-BBB6-601C170FA2CA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EFD474B1-8BA3-47D5-8963-5743000A9F43} = {2A37D887-3C60-41E4-9190-7CC562F9FDB4}
+		{DD917C87-86A3-43DC-A0B7-4B895F17D197} = {2A37D887-3C60-41E4-9190-7CC562F9FDB4}
+		{4E9D1206-210E-4B8B-BFFD-0CE5CE57FB16} = {2A37D887-3C60-41E4-9190-7CC562F9FDB4}
+		{8536B471-73D5-4070-BBB6-601C170FA2CA} = {2A37D887-3C60-41E4-9190-7CC562F9FDB4}
+	EndGlobalSection
+EndGlobal

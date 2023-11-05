@@ -1,0 +1,29 @@
+﻿version: '3.9'
+
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - db:/var/lib/postgresql/data
+  
+  api:
+    build:
+      context: ../src
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+    ports:
+      - "5001:80"
+    environment:
+      NpgsqlConnectionString: Server=postgres;Port=5432;Database=filestorage;Userid=postgres;Password=password;Pooling=true;MinPoolSize=1;MaxPoolSize=20;ConnectionLifeTime=15;
+      ASPNETCORE_ENVIRONMENT: Development
+    volumes:
+      - ./api:/app/data
+
+volumes: 
+  db:
